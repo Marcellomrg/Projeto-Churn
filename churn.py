@@ -81,9 +81,9 @@ tree_discretization = discretisation.DecisionTreeDiscretiser(
         ,bin_output= "bin_number"
         ,cv=3)
 
-tree_discretization.fit(x_train,y_train)
+tree_discretization.fit(x_train[best_features],y_train)
 # %%
-x_train_transform = tree_discretization.transform(x_train)
+x_train_transform = tree_discretization.transform(x_train[best_features])
 x_train_transform
 
 # %%
@@ -93,4 +93,40 @@ from sklearn import linear_model
 
 reg = linear_model.LogisticRegression(penalty=None,random_state=42)
 reg.fit(x_train_transform,y_train)
+# %%
+# Metricas de ajuste para treino
+
+from sklearn import metrics
+
+y_train_predict = reg.predict(x_train_transform)
+y_train_proba = reg.predict_proba(x_train_transform)[:,1]
+
+acc_train = metrics.accuracy_score(y_train,y_train_predict)
+auc_train = metrics.roc_auc_score(y_train,y_train_proba)
+print("Acuracia Treino:",acc_train)
+print("ACU TREINO:",auc_train)
+
+# Metricas de ajuste para teste
+
+x_test_transform = tree_discretization.transform(x_test[best_features])
+
+y_test_predict = reg.predict(x_test_transform)
+y_test_proba = reg.predict_proba(x_test_transform)[:,1]
+
+acc_test = metrics.accuracy_score(y_test,y_test_predict)
+auc_test = metrics.roc_auc_score(y_test,y_test_proba)
+print("Acuracia Teste:",acc_test)
+print("ACU Teste:",auc_test)
+
+# Metricas de ajuste para minha OOT
+
+oot_transform = tree_discretization.transform(oot[best_features])
+
+y_oot_predict = reg.predict(oot_transform)
+y_oot_proba = reg.predict_proba(oot_transform)[:,1]
+
+acc_oot = metrics.accuracy_score(oot[target],y_oot_predict)
+auc_oot = metrics.roc_auc_score(oot[target],y_oot_proba)
+print("Acuracia Oot:",acc_oot)
+print("ACU Oot:",auc_oot)
 # %%
