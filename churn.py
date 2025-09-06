@@ -71,4 +71,26 @@ best_features = (features_importance[features_importance['acum'] < 0.96]['index'
                  .tolist())
 best_features
 # %%
+# MODIFY
 
+from feature_engine import discretisation
+
+tree_discretization = discretisation.DecisionTreeDiscretiser(
+        variables=best_features
+        ,regression=False
+        ,bin_output= "bin_number"
+        ,cv=3)
+
+tree_discretization.fit(x_train,y_train)
+# %%
+x_train_transform = tree_discretization.transform(x_train)
+x_train_transform
+
+# %%
+# Model
+
+from sklearn import linear_model
+
+reg = linear_model.LogisticRegression(penalty=None,random_state=42)
+reg.fit(x_train_transform,y_train)
+# %%
