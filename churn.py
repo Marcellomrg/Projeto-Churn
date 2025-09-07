@@ -1,6 +1,18 @@
 # %%
 # Projeto com objetivo de criar o melhor modelo para prever meu churn
 import pandas as pd
+import mlflow
+from sklearn import metrics
+from sklearn import model_selection
+from sklearn import tree
+import matplotlib.pyplot as plt
+from feature_engine import discretisation,encoding
+from sklearn import pipeline
+from sklearn import linear_model
+from sklearn import naive_bayes
+from sklearn import ensemble
+mlflow.set_tracking_uri("http://127.0.0.1:5000")
+mlflow.set_experiment(experiment_name="Churn_experiment")
 pd.options.display.max_columns = 500
 pd.options.display.max_rows = 500
 # %%
@@ -25,7 +37,6 @@ X = df_analise[features]
 y = df_analise[target]
 # %%
 # Separando meus dados entre base treino e base teste
-from sklearn import model_selection
 x_train,x_test,y_train,y_test = model_selection.train_test_split(X,y,random_state=42,test_size=0.2,stratify=y)
 # %%
 df_train  = pd.DataFrame()
@@ -49,10 +60,8 @@ summary["Diff_rel"] = summary[0]/summary[1]
 # %%
 summary.sort_values(by=["Diff_rel"],ascending=False)
 # %%
-from sklearn import tree
-import matplotlib.pyplot as plt
-
 arvore = tree.DecisionTreeClassifier(random_state=42)
+# %%
 arvore.fit(x_train,y_train)
 plt.figure(dpi=400,figsize=(4,4))
 tree.plot_tree(arvore,feature_names=x_train.columns
@@ -72,9 +81,6 @@ best_features = (features_importance[features_importance['acum'] < 0.96]['index'
 best_features
 # %%
 # MODIFY
-
-from feature_engine import discretisation,encoding
-from sklearn import pipeline
 tree_discretization = discretisation.DecisionTreeDiscretiser(
         variables=best_features
         ,regression=False
@@ -88,32 +94,34 @@ hot_encoding = encoding.OneHotEncoder(variables=best_features,
 # %%
 # Model
 
-from sklearn import linear_model
-from sklearn import naive_bayes
-from sklearn import ensemble
-
 #model = linear_model.LogisticRegression(penalty=None,random_state=42,max_iter=1000000)
 #model = naive_bayes.BernoulliNB()
 model = ensemble.RandomForestClassifier(random_state=42,
-                                            min_samples_leaf=20,
-                                            n_jobs=-1,
-                                            n_estimators=500)
+                                            n_jobs=2,
+                                            )
 #model = ensemble.AdaBoostClassifier(random_state=42,
 #                                    n_estimators=500,
 #                                    learning_rate=0.1)
+
+param = {
+        "min_samples_leaf":[20,25,50,10,15],
+        "n_estimators":[500,100,200,1000],
+        "criterion":["gini","entropy","log_loss"]
+}
+
+grid = model_selection.GridSearchCV(model,
+                                    param_grid=param
+                                    ,cv=3
+                                    ,scoring="roc_auc"
+                                    ,verbose=4)
+
 model_pipeline = pipeline.Pipeline(
                 steps=[
                     ('Discretizar',tree_discretization),
                     ("Onehot",hot_encoding),
-                    ("Model",model)
-                ]
-)
+                    ("Grid",grid)
+                ])
 
-import mlflow
-from sklearn import metrics
-
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_experiment(experiment_name="Churn_experiment")
 
 with mlflow.start_run(run_name=model.__str__()):
         
