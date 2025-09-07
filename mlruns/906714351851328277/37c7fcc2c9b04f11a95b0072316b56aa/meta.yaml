@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/37c7fcc2c9b04f11a95b0072316b56aa/artifacts
+end_time: 1757217014051
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: 37c7fcc2c9b04f11a95b0072316b56aa
+run_name: BernoulliNB()
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757216988481
+status: 3
+tags: []
+user_id: Marce

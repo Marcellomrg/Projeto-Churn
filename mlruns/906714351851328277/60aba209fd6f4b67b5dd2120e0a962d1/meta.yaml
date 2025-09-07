@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/60aba209fd6f4b67b5dd2120e0a962d1/artifacts
+end_time: 1757216430404
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: 60aba209fd6f4b67b5dd2120e0a962d1
+run_name: AdaBoostClassifier(learning_rate=0.1, n_estimators=500, random_state=42)
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757216392791
+status: 4
+tags: []
+user_id: Marce

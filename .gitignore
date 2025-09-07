@@ -1,1 +1,5 @@
 *.csv
+*.parquet
+*.pkl
+*.joblib
+*.model
