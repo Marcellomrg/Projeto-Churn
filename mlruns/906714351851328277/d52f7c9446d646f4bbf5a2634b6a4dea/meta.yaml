@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/d52f7c9446d646f4bbf5a2634b6a4dea/artifacts
+end_time: 1757225169343
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: d52f7c9446d646f4bbf5a2634b6a4dea
+run_name: trusting-crow-722
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757224891389
+status: 3
+tags: []
+user_id: Marce

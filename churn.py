@@ -15,6 +15,7 @@ mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_experiment(experiment_name="Churn_experiment")
 pd.options.display.max_columns = 500
 pd.options.display.max_rows = 500
+
 # %%
 df = pd.read_csv("data/abt_churn.csv")
 df.head()
@@ -115,7 +116,7 @@ grid = model_selection.GridSearchCV(model,
                                     ,scoring="roc_auc"
                                     ,verbose=4)
 
-model_pipeline = pipeline.Pipeline(
+model_pipeline= pipeline.Pipeline(
                 steps=[
                     ('Discretizar',tree_discretization),
                     ("Onehot",hot_encoding),
@@ -193,3 +194,11 @@ plt.legend([
 
 # %%
 
+model_df = pd.Series({
+        "model":model_pipeline,
+        "features": best_features
+}
+                     )
+
+model_df.to_pickle("model.pkl")
+# %%

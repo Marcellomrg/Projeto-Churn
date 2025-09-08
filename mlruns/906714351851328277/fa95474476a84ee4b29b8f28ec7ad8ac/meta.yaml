@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/fa95474476a84ee4b29b8f28ec7ad8ac/artifacts
+end_time: 1757225169343
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: fa95474476a84ee4b29b8f28ec7ad8ac
+run_name: fun-dog-736
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757224891389
+status: 3
+tags: []
+user_id: Marce

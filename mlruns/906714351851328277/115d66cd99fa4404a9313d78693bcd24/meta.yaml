@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/115d66cd99fa4404a9313d78693bcd24/artifacts
+end_time: 1757225169343
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: 115d66cd99fa4404a9313d78693bcd24
+run_name: marvelous-bug-174
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757224891389
+status: 3
+tags: []
+user_id: Marce

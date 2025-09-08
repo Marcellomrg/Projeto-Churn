@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/906714351851328277/04364f2fe28644feb5d8fc8592141cec/artifacts
+end_time: 1757225175724
+entry_point_name: ''
+experiment_id: '906714351851328277'
+lifecycle_stage: active
+run_id: 04364f2fe28644feb5d8fc8592141cec
+run_name: RandomForestClassifier(n_jobs=2, random_state=42)
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757224891389
+status: 3
+tags: []
+user_id: Marce
